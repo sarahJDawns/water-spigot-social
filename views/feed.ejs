@@ -1,0 +1,19 @@
+<%- include('partials/header') -%>
+  <div class="container mx-auto flex flex-col p-6">
+    <div class="flex flex-row mb-8 mt-15">
+      <a class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" href="/profile">Return to Profile</a>
+      <a href="/logout" class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">Logout</a>
+    </div>  
+    <div class="container flex flex-col mb-8 mt-20">
+      <ul class="flex flex-col list-none">
+        <% for(var i=0; i<posts.length; i++) {%>
+          <li class="flex flex-col mb-8 mt-15">
+            <a href="/post/<%= posts[i]._id%>">
+              <img class="object-cover h-full" src="<%= posts[i].image%>">
+            </a>
+          </li>
+        <% } %>
+        </ul>
+    </div>
+  </div>  
+<%- include('partials/footer') -%>

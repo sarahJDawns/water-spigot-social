@@ -1,0 +1,62 @@
+<%- include('partials/header') -%>
+<div class="container mx-auto flex flex-col p-6">
+  <div class="container flex flex-col ">
+    <div class="container flex flex-col mt-15">
+      <h2 class="font-bold mb-2 ml-5 text-xl"><%= post.title %></h2>
+      <img class="object-cover h-full" src="<%= post.image%>" />
+      <div class="flex flex-row mb-8">
+        <div class="ml-5 mt-2">
+          <p><%= post.caption %></p>
+        </div>
+        <form
+          action="/post/likePost/<%= post.id %>?_method=PUT"
+          method="POST"
+        >
+        <button type="submit" class="inline-flex ml-5 mt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
+            <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
+        </button>        
+        </form>
+        <h3 class="inline-flex mt-2">Likes: <%= post.likes %></h3>
+        <%if(post.user == user.id){ %>
+        <form
+          action="/post/deletePost/<%= post.id %>?_method=DELETE"
+          method="POST"
+        >
+          <button class="inline-flex  mr-5 mt-2" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-cyan-600">
+              <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </form>
+        <%}%>
+      </div>
+    </div>
+    <div class="mt-12">
+      <h2 class="font-bold text-xl mb-5">Add a comment</h2>
+      <form action="/comment/createComment/<%=post._id%>" method="POST">
+        <div class="flex flex-col mb-8 mt-15">
+          <label for="comment" class="mb-3">Comment</label>
+          <input type="text" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="comment" name="comment" />
+        </div>
+        <button type="submit" class="flex flex-row  mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">Submit</button>
+      </form>
+    </div>
+    <div class="flex flex-col mb-8 mt-20">
+      <ul class="flex flex-col list-none">
+      <% for(var i=0; i<comments.length; i++) {%>
+      <li class="flex flex-col mb-8 mt-15">
+        <%= comments[i].comment%>
+      </li>
+      <% } %>
+    </ul>
+    </div>
+    <div class="flex flex-row mb-8 mt-15">
+      <a class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" href="/profile">Return to Profile</a>
+      <a class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" href="/feed">Return to Feed</a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') -%>

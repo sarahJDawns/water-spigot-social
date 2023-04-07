@@ -1,0 +1,74 @@
+<%- include('partials/header') -%>
+<main class="container mx-auto flex flex-col items-center justify-center p-6">
+  <div class="container flex justify-center items-center flex-row">
+    <section>
+      <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
+      <div
+        class="flex-col text-xl pb-3 text-red-700 font-bold mx-auto text-center"
+      >
+        <%= el.msg %>
+      </div>
+      <% }) %> <% } %> <% if (locals.messages.info) { %> <%
+      messages.info.forEach( el => { %>
+      <div
+        class="alert alert-infotext-xl pb-5 text-red-700 font-bold mx-auto text-center"
+      >
+        <%= el.msg %>
+      </div>
+      <% }) %> <% } %>
+      <form action="/signup" method="POST">
+        <div class="flex flex-col mb-8 mt-15">
+          <label for="userName" class="my-3">User Name</label>
+          <input
+            type="text"
+            class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100"
+            id="userName"
+            name="userName"
+          />
+        </div>
+        <div class="flex flex-col my-8">
+          <label for="exampleInputEmail1" class="mb-3">Email address</label>
+          <input
+            type="email"
+            class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            name="email"
+          />
+          <div
+            id="emailHelp"
+            class="text-xl py-8 text-blue-800 font-bold mx-auto text-center"
+          >
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+        <div class="flex flex-col mb-8 mt-15">
+          <label for="password" class="mb-3">Password</label>
+          <input
+            type="password"
+            class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100"
+            id="password"
+            name="password"
+          />
+        </div>
+        <div class="flex flex-col mb-8 mt-15">
+          <label for="confirmPassword" class="mb-3">Confirm Password</label>
+          <input
+            type="password"
+            class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100"
+            id="confirmPassword"
+            name="confirmPassword"
+          />
+        </div>
+        <button
+          type="submit"
+          class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<%- include('partials/footer') -%>
