@@ -53,6 +53,40 @@
         <button type="submit" class="flex flex-row  mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">Submit</button>
       </form>
     </div>
+    //*
+    
+<% function displayComments(comments, parentCommentId) { %>
+  <ul>
+    <% const filteredComments = comments.filter(comment => comment.parentId === parentCommentId) %>
+    <% filteredComments.forEach(comment => { %>
+      <li>
+          <form method="post" action="/likeComment/<%= comment._id %>">
+            <button type="submit">Like</button>
+            <span><%= comment.likes %> likes</span>
+          </form>
+          <form method="post" action="/createComment/<%= post._id %>">
+            <textarea name="comment"></textarea>
+            <input type="hidden" name="parentId" value="<%= comment._id %>">
+            <button type="submit">Reply</button>
+          </form>
+        </div>
+        <% displayComments(comments, comment._id) %>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<div>
+  <!-- Display root-level comments -->
+  <% displayComments(comments, undefined) %>
+
+  <!-- Form to add new root-level comment -->
+  <form method="post" action="/createComment/<%= post._id %>">
+    <textarea name="comment"></textarea>
+    <button type="submit">Comment</button>
+  </form>
+</div>
+//*
     <div class="flex flex-col mb-8 mt-20">
       <ul class="flex flex-col list-none">
       <% for(var i=0; i<comments.length; i++) {%>
