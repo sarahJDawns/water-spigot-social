@@ -55,7 +55,7 @@
       <li class="flex flex-col mb-8 mt-15">
         <div class="border border-cyan-700 rounded p-4">
           <%= comments[i].comment%>
-          <p class="text-right text-xs"><%= new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>.</p>
+          <p class="text-right text-xs">Posted by on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
         </div>
       </li>
       <% } %>
