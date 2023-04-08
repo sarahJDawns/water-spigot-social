@@ -7,8 +7,6 @@ const UserSchema = new mongoose.Schema({
   password: String,
 });
 
-// Password hash middleware.
-
 UserSchema.pre("save", function save(next) {
   const user = this;
   if (!user.isModified("password")) {
@@ -28,9 +26,6 @@ UserSchema.pre("save", function save(next) {
   });
 });
 
-// Helper method for validating user's password.
-
-// Helper method for validating user's password.
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   try {
     const isMatch = await bcrypt.compare(candidatePassword, this.password);
@@ -39,15 +34,5 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
     throw err;
   }
 };
-
-//*original
-// UserSchema.methods.comparePassword = function comparePassword(
-//   candidatePassword,
-//   cb
-// ) {
-//   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-//     cb(err, isMatch);
-//   });
-// };
 
 module.exports = mongoose.model("User", UserSchema);
