@@ -3,9 +3,10 @@
 <div class="container mx-auto flex flex-col p-6">
   <div class="container flex flex-col ">
     <div class="container flex flex-col mt-15">
+      <div class="border border-cyan-700 rounded p-4">
       <h2 class="font-bold mb-2 ml-5 text-xl"><%= post.title %></h2>
       <img class="object-cover h-full" src="<%= post.image%>" />
-      <div class="flex flex-row mb-8 justify-between">
+      <div class="flex flex-row justify-between">
         <div class="flex flex-row ml-5 mt-2">
           <p><%= post.caption %></p>
         </div>
@@ -23,6 +24,9 @@
           </form>
           <h3 class="mr-5 mt-2">Likes: <%= post.likes %></h3>
           </div>
+        </div>
+      </div>
+    </div>
           <%if(post.user == user.id){ %>
           <form
             action="/post/deletePost/<%= post.id %>?_method=DELETE"
@@ -36,8 +40,8 @@
             </button>
           </form>
           <%}%>
-        </div>
-      </div>
+        
+      
     </div>
     <div class="mt-12">
       <h2 class="font-bold text-xl mb-5">Add a comment</h2>

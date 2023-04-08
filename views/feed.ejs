@@ -18,10 +18,10 @@
                 <p class="ml-5 mt-2"><%= posts[i].caption %></p>
                 <h3 class="mt-2 mr-5">Likes: <%= posts[i].likes %></h3>
               </div>
-              <p class="text-right text-xs">Posted by <%= posts[i].user.userName %>on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p></p>
+              <p class="text-right text-xs">Posted by <%= posts[i].user.userName %>on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
             </li>
           <% } %>
-          </ul>
+        </ul>
       </div>
     </div>
   </div>  
