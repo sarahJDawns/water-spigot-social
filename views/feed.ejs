@@ -10,8 +10,8 @@
         <ul class="flex flex-col list-none">
           <% for(var i=0; i<posts.length; i++) {%>
             <li class="flex flex-col mb-8 mt-15 border border-cyan-700 rounded p-4">
-              <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title %></h2>
               <a href="/post/<%= posts[i]._id%>">
+              <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title %></h2>
                 <img class="object-cover h-full" src="<%= posts[i].image%>">
               </a>
               <div class="flex flex-row justify-between mb-8">
