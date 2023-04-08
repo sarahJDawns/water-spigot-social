@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development nodemon app",
     "build": "set NODE_ENV=production postcss styles.css -o dist/styles.css",
     "watch": "tailwindcss -i ./input.css -o ./css/main.css --watch",
-    "dev-all": "npm-run-all --parallel dev watch --restart"
+    "dev-all": "npm-run-all --parallel dev watch"
   },
   "author": "sjdawns",
   "license": "ISC",
