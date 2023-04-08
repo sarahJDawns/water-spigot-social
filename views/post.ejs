@@ -12,6 +12,7 @@
           </div>
           <div class="flex flex-col">
             <div class="flex">
+              <%if(post.user != user.id) { %>
               <form
                 action="/post/likePost/<%= post.id %>?_method=PUT"
                 method="POST"
@@ -31,8 +32,10 @@
                   </svg>
                 </button>
               </form>
+              <%}%>
               <h3 class="mr-5 mt-2">Likes: <%= post.likes %></h3>
             </div>
+            
           </div>
         </div>
       </div>

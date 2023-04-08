@@ -31,4 +31,7 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
+// const post = await Post.findById(postId).populate("user");
+// console.log(post.user.userName); // Outputs the userName of the author of the post
+
 module.exports = mongoose.model("Post", PostSchema);
