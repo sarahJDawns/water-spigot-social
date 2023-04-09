@@ -31,7 +31,7 @@
           </div>
       </div>
     </div>
-    <div class="flex flex-col mb-8 mt-20">
+    <div class="container flex flex-col mb-8 mt-20">
       <ul class="container flex flex-col list-none">
       <% for(var i=0; i<posts.length; i++) {%>
         <li class="flex flex-col mb-8 mt-15 border border-cyan-700 rounded p-4">
@@ -41,6 +41,7 @@
             <p class="mt-2 ml-5"><%= posts[i].caption%></p>
             <p class="text-right text-xs">Posted by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
           </a>
+          
         </li>
       <% } %>
       </ul>

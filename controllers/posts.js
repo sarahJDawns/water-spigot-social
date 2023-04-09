@@ -22,9 +22,11 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id).populate("user");
+      const post = await Post.findById(req.params.id);
+      // .populate("user");
       const comments = await Comment.find({ post: req.params.id })
         .sort({ createdAt: "desc" })
+        // .populate("user")
         .lean();
       res.render("post.ejs", {
         post: post,

@@ -7,8 +7,8 @@
         <img class="object-cover h-full" src="<%= post.image%>" />
         <div class="flex flex-row justify-between ml-5 mt-2">
             <p><%= post.caption %></p>
-            <div class="flex flex-row  mb-8">
-              <%if(post.user !== user.id) { %>
+            <div class="flex flex-row">
+              <%if(post.user != user.id) { %>
               <form
                 action="/post/likePost/<%= post.id %>?_method=PUT"
                 method="POST"
@@ -33,9 +33,8 @@
             </div>
           </div>
             <p class="text-right text-xs">Posted by <%= post.user.userName %> on <%= post.createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-        
       </div>
-      <%if(post.user !== user.id){ %>
+      <%if(post.user == user.id){ %>
       <form
         action="/post/deletePost/<%= post.id %>?_method=DELETE"
         method="POST"
@@ -83,7 +82,7 @@
       <% for(let i=0; i<comments.length; i++) {%>
         <li class="flex flex-col mb-8 mt-15 border border-cyan-700 rounded p-4">
         <%= comments[i].comment%>
-        <p class="text-right text-xs">Posted by <%= post.user.userName %> on <%= post.createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+        <p class="text-right text-xs">Comment by <%= comments[i].comment.userName%> on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
         </li>
       <% } %>
       </ul>
@@ -101,6 +100,5 @@
       >
     </div>
   </div>
-</div>
 
 <%- include('partials/footer') -%>

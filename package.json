@@ -6,9 +6,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node app",
     "dev": "cross-env NODE_ENV=development nodemon app",
-    "build": "set NODE_ENV=production postcss styles.css -o dist/styles.css",
+    "build": "set NODE_ENV=production tailwindcss -i postcss styles.css -o",
     "watch": "tailwindcss -i ./input.css -o ./css/main.css --watch",
-    "dev-all": "npm-run-all --parallel dev watch"
+    "dev-all": "npm-run-all --parallel dev"
   },
   "author": "sjdawns",
   "license": "ISC",
