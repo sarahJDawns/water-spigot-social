@@ -22,7 +22,7 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.params.id).populate("user");
       const comments = await Comment.find({ post: req.params.id })
         .sort({ createdAt: "desc" })
         .lean();
@@ -40,7 +40,6 @@ module.exports = {
       let image = undefined;
       let cloudinaryId = undefined;
 
-      // Check if a file was uploaded
       if (req.file) {
         const result = await cloudinary.uploader.upload(req.file.path);
         image = result.secure_url;
@@ -62,6 +61,7 @@ module.exports = {
       console.log(err);
     }
   },
+
   likePost: async (req, res) => {
     try {
       await Post.findOneAndUpdate(
