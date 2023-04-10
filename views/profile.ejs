@@ -30,12 +30,19 @@
                 <label for="caption" class="mb-3">Caption</label>
                 <textarea class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="caption" name="caption"></textarea>
               </div>
-              <div class="mb-3flex flex-col mb-8 mt-15">
+              <div class="mb-3 flex flex-col mt-15">
                 <label for="imgUpload" class="mb-3">Image</label>
                 <input type="file" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="imageUpload" name="file">
               </div>
               <button type="submit" class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" value="Upload">Submit</button>
             </form>
+            <% if (locals.messages.errors) { %>
+              <% messages.errors.forEach((el) => { %>
+                <div class="text-xl mt-5 text-red-700 font-bold mx-auto text-center">
+                  <%= el.msg %>
+                </div>
+              <% }) %>
+            <% } %>
           </div>
       </div>
     </div>

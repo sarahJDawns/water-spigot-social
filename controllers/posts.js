@@ -40,10 +40,12 @@ module.exports = {
       console.log(err);
     }
   },
+
   createPost: async (req, res) => {
     try {
       let image = undefined;
       let cloudinaryId = undefined;
+      const { title, caption, file } = req.body;
 
       if (req.file) {
         const result = await cloudinary.uploader.upload(req.file.path);
@@ -51,19 +53,36 @@ module.exports = {
         cloudinaryId = result.public_id;
       }
 
+      if (!req.body.title && !req.body.caption) {
+        req.flash("errors", { msg: "At least one field must be filled." });
+        return res.redirect("/profile");
+      }
+
+      if (!req.body.title.trim() && !req.body.caption.trim()) {
+        req.flash("errors", { msg: "At least one field must not be empty." });
+        return res.redirect("/profile");
+      }
+
       await Post.create({
-        title: req.body.title,
+        title: title,
         image: image,
         cloudinaryId: cloudinaryId,
-        caption: req.body.caption,
+        caption: caption,
         likes: 0,
         user: req.user.id,
       });
+
+      if (!title || !caption || !file) {
+        req.flash("errors", { msg: "At least one field must be filled." });
+        return res.redirect("/profile");
+      }
 
       console.log("Post has been added!");
       res.redirect("/profile");
     } catch (err) {
       console.log(err);
+      req.flash("errors", { msg: "Failed to add post" });
+      res.redirect("/profile");
     }
   },
 

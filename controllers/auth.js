@@ -117,23 +117,32 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.getDeleteAccount = (req, res) => {
-  res.render("delete-account", {
-    title: "Delete Account",
-  });
+  res.render("delete-account");
 };
 
 exports.postDeleteAccount = async (req, res) => {
+  const validationErrors = [];
+  if (req.body.password !== req.body.confirmPassword)
+    validationErrors.push({ msg: "Passwords do not match" });
+
+  if (validationErrors.length) {
+    req.flash("errors", validationErrors);
+    return res.redirect("../delete-account");
+  }
+  if (!req.body.password || !req.body.confirmPassword) {
+    req.flash("errors", { msg: "All fields are required." });
+    return res.redirect("/delete-account");
+  }
+
   try {
     const userId = req.params.id;
     await Post.deleteMany({ user: req.user._id });
     await Comment.deleteMany({ user: req.user._id });
     await User.deleteOne({ _id: req.user._id });
     console.log("Deleted User");
-    req.flash("success", { msg: "Your account has been deleted." });
     res.redirect("/");
   } catch (err) {
     console.error(err);
-    req.flash("errors", { msg: "Failed to delete your account." });
     res.redirect("/");
   }
 };
