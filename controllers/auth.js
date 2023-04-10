@@ -1,6 +1,8 @@
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
+const Post = require("../models/post");
+const Comment = require("../models/Comment");
 
 exports.getLogin = (req, res) => {
   if (req.user) {
@@ -112,4 +114,26 @@ exports.postSignup = (req, res, next) => {
     .catch((err) => {
       return next(err);
     });
+};
+
+exports.getDeleteAccount = (req, res) => {
+  res.render("delete-account", {
+    title: "Delete Account",
+  });
+};
+
+exports.postDeleteAccount = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    await Post.deleteMany({ user: req.user._id });
+    await Comment.deleteMany({ user: req.user._id });
+    await User.deleteOne({ _id: req.user._id });
+    console.log("Deleted User");
+    req.flash("success", { msg: "Your account has been deleted." });
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    req.flash("errors", { msg: "Failed to delete your account." });
+    res.redirect("/");
+  }
 };
