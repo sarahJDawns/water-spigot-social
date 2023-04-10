@@ -8,7 +8,7 @@
         <div class="flex flex-row justify-between ml-5 mt-2">
             <p><%= post.caption %></p>
             <div class="flex flex-row">
-              <%if(post.user != user.id) { %>
+              <%if(post.user._id.toString() !== user._id.toString()) { %>
               <form
                 action="/post/likePost/<%= post.id %>?_method=PUT"
                 method="POST"
@@ -34,7 +34,7 @@
           </div>
             <p class="text-right text-xs">Posted by <%= post.user.userName %> on <%= post.createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
       </div>
-      <%if(post.user == user.id){ %>
+      <%if((post.user._id.toString() == user._id.toString())){ %>
       <form
         action="/post/deletePost/<%= post.id %>?_method=DELETE"
         method="POST"
