@@ -1,7 +1,7 @@
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
-const Post = require("../models/post");
+const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 
 exports.getLogin = (req, res) => {
