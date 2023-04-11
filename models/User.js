@@ -26,6 +26,12 @@ UserSchema.pre("save", function save(next) {
   });
 });
 
+UserSchema.pre("remove", async function (next) {
+  const user = this;
+  await Comment.deleteMany({ user: user._id });
+  next();
+});
+
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   try {
     const isMatch = await bcrypt.compare(candidatePassword, this.password);

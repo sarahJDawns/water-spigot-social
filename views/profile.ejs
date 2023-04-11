@@ -55,7 +55,7 @@
             <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title%></h2>
             <img class="object-cover h-full" src="<%= posts[i].image%>">
             <p class="mt-2 ml-5"><%= posts[i].caption%></p>
-            <p class="text-right text-xs">Posted by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p class="text-right text-xs">Post by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
           </a>
         </li>
       <% } %>

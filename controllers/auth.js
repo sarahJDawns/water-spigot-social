@@ -135,7 +135,7 @@ exports.postDeleteAccount = async (req, res) => {
   }
 
   try {
-    const userId = req.params.id;
+    // const userId = req.params.id;
     await Post.deleteMany({ user: req.user._id });
     await Comment.deleteMany({ user: req.user._id });
     await User.deleteOne({ _id: req.user._id });

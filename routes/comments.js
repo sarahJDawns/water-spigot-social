@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const commentsController = require("../controllers/comments");
-const { ensureAuth, ensureGuest } = require("../middleware/auth");
+// const { ensureAuth, ensureGuest } = require("../middleware/auth");
 // const Comment = require("../models/Comment");
 
 router.post("/createComment/:id", commentsController.createComment);
+
+router.delete("/deleteComment/:id", commentsController.deleteComment);
 
 // router.get("/", async (req, res) => {
 //   try {

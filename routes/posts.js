@@ -3,7 +3,7 @@ const router = express.Router();
 const upload = require("../middleware/multer");
 const postsController = require("../controllers/posts");
 const { ensureAuth } = require("../middleware/auth");
-const Post = require("../models/Post");
+// const Post = require("../models/Post");
 
 router.get("/:id", ensureAuth, postsController.getPost);
 

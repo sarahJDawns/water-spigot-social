@@ -31,4 +31,18 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
+// PostSchema.virtual("user", {
+//   ref: "User",
+//   localField: "userName",
+//   foreignField: "userName",
+//   justOne: true,
+// });
+
+// PostSchema.virtual("user", {
+//   ref: "User",
+//   localField: "userName",
+//   foreignField: "_id",
+//   justOne: true,
+//   populate: { select: "userName" },
+// });
 module.exports = mongoose.model("Post", PostSchema);

@@ -1,12 +1,17 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Comment = require("../models/Comment");
+const mongoose = require("mongoose");
+const { postcss } = require("autoprefixer");
 
 module.exports = {
   getProfile: async (req, res) => {
     console.log(req.user);
     try {
-      const posts = await Post.find({ user: req.user.id });
+      const posts = await Post.find({ user: req.user.id }).populate({
+        path: "user",
+        match: { username: req.user.username },
+      });
       res.render("profile.ejs", { posts: posts, user: req.user });
     } catch (err) {
       console.log(err);
@@ -16,6 +21,7 @@ module.exports = {
     try {
       const posts = await Post.find()
         .sort({ createdAt: "desc" })
+        .populate({ path: "user", match: { username: req.user.username } })
         // .populate("user")
         .lean();
       res.render("feed.ejs", { posts: posts });
@@ -25,15 +31,45 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
+      // const postId = new mongoose.Types.ObjectId(req.params.id);
+      // const post = await Post.find({ post: postId })
+      const posts = await Post.findById(req.params.id).populate({
+        path: "user",
+        // match: { userName: req.user.userName },
+      });
       // .populate("user");
+      // const commentId = new mongoose.Types.ObjectId(req.params.id);
+      // const comments = await Comment.find({ comment: commentId })
       const comments = await Comment.find({ post: req.params.id })
         .sort({ createdAt: "desc" })
-        // .populate("user")
+        // .populate({ path: "post.user", select: "userName" })
+        .populate({ path: "user", match: { username: req.user.username } })
+        // .populate({
+        //   path: "user",
+        //   // select: "userName",
+        // })
+        // path: "post",
+        // select: "user",
+        // populate: {
+        //   path: "user",
+        //   select: "userName",
+        //   populate: {
+        //     path: "user",
+        //     select: "userName",
+        //     // },
+        //   },
+        // })
+        // .populate("userName")
         .lean();
-      // await Comment.populate(comments, { path: "user" });
+      // await Comment.populate(comments);
+      // for (const comment of comments) {
+      //   await comment.populate("user", "username").execPopulate();
+      // }
+
+      console.log(comments);
+      console.log(posts);
       res.render("post.ejs", {
-        post: post,
+        post: posts,
         user: req.user,
         comments: comments,
       });

@@ -7,7 +7,7 @@ const CommentSchema = new mongoose.Schema({
   },
   likes: {
     type: Number,
-    required: true,
+    required: false,
   },
   post: {
     type: mongoose.Schema.Types.ObjectId,
@@ -17,15 +17,31 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  // user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
-// CommentSchema.virtual("userName", {
+// CommentSchema.virtual("user", {
+//   ref: "User",
+//   localField: "userName",
+//   foreignField: "userName",
+//   justOne: true,
+//   populate: { select: "userName" },
+// });
+
+// CommentSchema.virtual("user", {
 //   ref: "User",
 //   localField: "user",
 //   foreignField: "_id",
 //   justOne: true,
-//   select: "userName",
+//   populate: { select: "userName" },
+//   toJSON: { virtuals: true },
+//   toObject: { virtuals: true },
+
+//   // ... other options ...
 // });
 
 module.exports = mongoose.model("Comment", CommentSchema);
