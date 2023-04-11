@@ -61,7 +61,6 @@
       <h2 class="font-bold text-xl mb-5">Add a comment</h2>
       <form action="/comment/createComment/<%=post._id%>" method="POST">
         <div class="flex flex-col mb-8 mt-15">
-          <label for="comment" class="mb-3">Comment</label>
           <input
             type="text"
             class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100"
@@ -71,11 +70,18 @@
         </div>
         <button
           type="submit"
-          class="flex flex-row mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700"
+          class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700"
         >
-          Submit
+          Comment!
         </button>
       </form>
+      <% if (messages.errors) { %>
+        <% messages.errors.forEach((el) => { %>
+          <div class="text-xl mt-5 text-red-700 font-bold mx-auto text-center">
+            <%= el.msg %>
+          </div>
+        <% }) %>
+      <% } %>
     </div>
     <div class="container flex flex-col mb-8 mt-20">
       <ul class="container flex flex-col list-none">

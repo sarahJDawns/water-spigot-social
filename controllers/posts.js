@@ -16,7 +16,7 @@ module.exports = {
     try {
       const posts = await Post.find()
         .sort({ createdAt: "desc" })
-        .populate("user")
+        // .populate("user")
         .lean();
       res.render("feed.ejs", { posts: posts });
     } catch (err) {
@@ -25,12 +25,13 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id).populate("user");
+      const post = await Post.findById(req.params.id);
+      // .populate("user");
       const comments = await Comment.find({ post: req.params.id })
         .sort({ createdAt: "desc" })
-        .populate("user")
+        // .populate("user")
         .lean();
-      await Comment.populate(comments, { path: "user" });
+      // await Comment.populate(comments, { path: "user" });
       res.render("post.ejs", {
         post: post,
         user: req.user,
@@ -71,12 +72,6 @@ module.exports = {
         likes: 0,
         user: req.user.id,
       });
-
-      if (!title || !caption || !file) {
-        req.flash("errors", { msg: "At least one field must be filled." });
-        return res.redirect("/profile");
-      }
-
       console.log("Post has been added!");
       res.redirect("/profile");
     } catch (err) {

@@ -17,15 +17,15 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  // user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-CommentSchema.virtual("userName", {
-  ref: "User",
-  localField: "user",
-  foreignField: "_id",
-  justOne: true,
-  select: "userName",
-});
+// CommentSchema.virtual("userName", {
+//   ref: "User",
+//   localField: "user",
+//   foreignField: "_id",
+//   justOne: true,
+//   select: "userName",
+// });
 
 module.exports = mongoose.model("Comment", CommentSchema);

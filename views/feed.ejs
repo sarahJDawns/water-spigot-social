@@ -8,7 +8,7 @@
     <div class="container flex flex-col mb-8 mt-20">
       <div class="container flex flex-col mt-15">
         <ul class="flex flex-col list-none">
-          <% for(var i=0; i<posts.length; i++) {%>
+          <% for(let i=0; i<posts.length; i++) {%>
             <li class="flex flex-col mb-8 mt-15 border border-cyan-700 rounded p-4">
               <a href="/post/<%= posts[i]._id%>">
               <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title %></h2>
