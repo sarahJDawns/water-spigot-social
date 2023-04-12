@@ -1,52 +1,70 @@
 <%- include('partials/header') -%>
 
-<div class="container mx-auto flex flex-col p-6">
-  <div class="container flex flex-col">
+<div class="container mx-auto  flex flex-col p-6">
+  <div class=" flex flex-row justify-end  text-center  mb-5 mr-5">
+    <a
+      class=" p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700"
+      href="/feed"
+      >Go to Feed</a
+    >
+  
+</div>
+  <div class=" flex flex-row   text-center justify-end my-3 mr-5">
+    
+      <a
+        class=" p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full  hover:bg-cyan-700"
+        href="/profile"
+        >Go to Profile</a
+      >
+    </div>
+      
+  <div class="container flex flex-col mt-8">
     <div
-      class="container flex flex-col mt-15 border border-cyan-700 rounded p-4"
+      class=" flex flex-col  mt-15 border border-cyan-700 rounded px-4 pt-2"
     >
       <h2 class="font-bold mb-2 ml-5 text-xl"><%= post.title %></h2>
-      <img class="object-cover h-full" src="<%= post.image%>" />
+      <img class="object-cover rounded" src="<%= post.image%>" />
       <div class="flex flex-row justify-between ml-5 mt-2">
         <p><%= post.caption %></p>
         <div class="flex flex-row">
-          <%if(post.user.userName !== user.userName){ %>
-          <form
-            action="/post/likePost/<%= post.id %>?_method=PUT"
-            method="POST"
-          >
-            <button type="submit" class="mr-2 mt-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 text-red-500"
-              >
-                <path
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                />
-              </svg>
-            </button>
-          </form>
-          <%}%>
-          <h3 class="mr-5 mt-2">Likes: <%= post.likes %></h3>
+          <h3 class="mr-2 mt-2 mb-2">Likes: <%= post.likes %></h3>
         </div>
       </div>
-      <p class="text-right text-xs">
+      <p class="text-right text-xs mb-2">
         Post by <%= post.user.userName %> on <%=
         post.createdAt.toLocaleDateString('en-US', { weekday: 'long', year:
         'numeric', month: 'long', day: 'numeric' }) %>
       </p>
     </div>
+    <%if(post.user.userName !== user.userName){ %>
+      <form
+        action="/post/likePost/<%= post.id %>?_method=PUT"
+        method="POST"
+        class="flex flex-row justify-end"
+      >
+        <button type="submit" class="mr-2 mt-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 text-red-500"
+          >
+            <path
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+            />
+          </svg>
+        </button>
+      </form>
+      <%}%>
     <%if(post.user.userName == user.userName){ %>
     <form
       action="/post/deletePost/<%= post.id %>?_method=DELETE"
       method="POST"
       class="flex flex-row justify-end"
     >
-      <button class="mr-5 mt-2" type="submit">
+      <button class="mr-2 mt-2" type="submit">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -67,12 +85,7 @@
     <h2 class="font-bold text-xl mb-5">Add a comment</h2>
     <form action="/comment/createComment/<%=post._id%>" method="POST">
       <div class="flex flex-col mb-8 mt-15">
-        <input
-          type="text"
-          class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100"
-          id="comment"
-          name="comment"
-        />
+        <input class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="comment" name="comment" maxlength="20"></input>
       </div>
       <button
         type="submit"
@@ -86,33 +99,52 @@
       <%= el.msg %>
     </div>
     <% }) %> <% } %>
-    <div class="flex flex-row mb-8 mt-12">
-      <a
-        class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700"
-        href="/profile"
-        >Return to Profile</a
-      >
-      <a
-        class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700"
-        href="/feed"
-        >Return to Feed</a
-      >
-    </div>
+    
   </div>
-  <div class="container flex flex-col mb-8 mt-12">
+  <div class="container flex flex-col mt-12">
       <ul class="container flex flex-col list-none">
         <% for(let i=0; i<comments.length; i++) {%>
-          <li class="flex flex-col mb-2 mt-15 border border-cyan-700 rounded p-4">
+          <li class="flex flex-col mb-2 mt-15  border border-cyan-700 rounded px-4 pt-2">
           <%= comments[i].comment%>
-          <% if (comments[i].userName) { %>
-          <p class="text-right text-xs">Comment by <%= comments[i].user.userName%> on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-          </li><% if (comments[i].user.toString() && comments[i].user.toString() == user.toString()) { %>
+          <% if (comments[i].user) { %>
+            <%if(comments[i].user.userName !== user.userName){ %>
+            <div class="flex flex-row justify-end ml-5 mt-2">
+              
+                <h3 class="mr-2 mt-2 mb-2">Likes: <%= comments[i].likes %></h3>
+              
+            </div>
+            <%}%>
+          <p class="text-right text-xs mb-2">Comment by <%= comments[i].user.userName%> on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+          </li>
+          <%if(comments[i].user.userName !== user.userName){ %>
+            <form
+              action="/comment/likeComment/<%= comments._id %>?_method=PUT"
+              method="POST"
+              class="flex flex-row justify-end"
+            >
+              <button type="submit" class="mr-2 mb-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-red-500"
+                >
+                  <path
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                  />
+                </svg>
+              </button>
+            </form>
+            <%}%>
+          <% if (comments[i].user.userName == user.userName) { %>
           <form
-          action="/comment/deleteComment/<%=comments.id%>?_method=DELETE"
+          action="/comment/deleteComment/<%=comments._id%>?_method=DELETE"
           method="POST"
           class="flex flex-row justify-end"
         >
-          <button class="mr-5 mb-8" type="submit">
+          <button class="mr-2 mb-5" type="submit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -130,6 +162,7 @@
         <% } %>
         <% } %>
         <% } %>
+        
         </ul>
       </div> 
   </div>

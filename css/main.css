@@ -626,10 +626,6 @@ video {
   height: 1.5rem;
 }
 
-.h-full {
-  height: 100%;
-}
-
 .w-6 {
   width: 1.5rem;
 }
@@ -660,6 +656,14 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.whitespace-normal {
+  white-space: normal;
+}
+
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .rounded {
@@ -700,10 +704,6 @@ video {
 
 .p-3 {
   padding: 0.75rem;
-}
-
-.p-4 {
-  padding: 1rem;
 }
 
 .p-6 {
