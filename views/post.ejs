@@ -104,10 +104,9 @@
         <% for(let i=0; i<comments.length; i++) {%>
           <li class="flex flex-col mb-2 mt-15 border border-cyan-700 rounded p-4">
           <%= comments[i].comment%>
-          <% if (comments[i].user) { %>
+          <% if (comments[i].userName) { %>
           <p class="text-right text-xs">Comment by <%= comments[i].user.userName%> on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-          </li>
-          <% if (comments[i]._id !== user.id) { %>
+          </li><% if (comments[i].user.toString() && comments[i].user.toString() == user.toString()) { %>
           <form
           action="/comment/deleteComment/<%=comments.id%>?_method=DELETE"
           method="POST"

@@ -14,7 +14,8 @@ module.exports = {
         likes: 0,
         post: req.params.id,
         user: req.params.id,
-        user: req.user.userName,
+        user: req.user.id,
+        // user: req.user.userName,
         createdAt: new Date(),
       });
 
@@ -30,21 +31,23 @@ module.exports = {
       //   user: userId,
       // });
 
-      // Save the new comment
-      // const savedComment = await newComment.save();
-      // const populatedComment = await Comment.find({
+      // // Save the new comment
+      // await newComment.save();
+      // await Comment.find({
       //   post: req.params.id,
       // }).populate({
-      //   path: "post",
-      //   select: "user",
-      //   populate: {
-      //     path: "user",
-      //     select: "userName",
-      //   },
+      //   path: "user",
+      //   // select: "userName",
+      //   match: { username: req.user.username },
+      //   // path: "post",
+      //   // select: "user",
+      //   // populate: {
+      //   //   path: "user",
+      //   //   select: "userName",
+      //   // },
       // });
       // Populate the user field with the associated userName from the User model
-      // await savedComment
-      // .populate("user", "userName").execPopulate();
+      // await savedComment.populate("user", "userName").execPopulate();
 
       console.log("Comment has been added!");
       res.redirect("/post/" + req.params.id);
