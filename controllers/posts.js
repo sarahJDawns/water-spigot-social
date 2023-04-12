@@ -42,8 +42,12 @@ module.exports = {
       // const comments = await Comment.find({ comment: commentId })
       const comments = await Comment.find({ post: req.params.id })
         .sort({ createdAt: "desc" })
-        // .populate({ path: "post.user", select: "userName" })
-        .populate({ path: "user", match: { username: req.user.username } })
+        .populate({
+          path: "user",
+          // select: "userName",
+          // match: { username: req.user.username },
+        })
+        // .populate({ path: "user", match: { username: req.user.username } })
         // .populate({
         //   path: "user",
         //   // select: "userName",
