@@ -1,69 +1,57 @@
 <%- include('partials/header') -%>
 
-
-  <div class="container flex justify-center items-center flex-col mx-auto p-6">
-      
-          <div class="container flex flex-row justify-between mb-8  ">
-            
-              <div class=" flex flex-col ">
-                <p class=" my-3  "><strong>User Name</strong>: <%= user.userName %></p>
-              <p class="my-3 "><strong>Email</strong>: <%= user.email %></p>
-              <a class=" my-3 p-3 px-6 text-white bg-cyan-600 rounded-full baseline text-center hover:bg-cyan-700" href="/delete-account">Delete Account</a>
-              </div>
-            
-              <div class=" flex flex-col  mb-8 mt-15">
-                <a href="/logout" class="mt-8 p-3 px-6 pt-2 text-center text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">Logout</a>
-                <a class="mt-8 p-3 px-6 pt-2 text-center text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" href="/feed">Go to Feed</a>
-              </div> 
-              
-            
-               
-          </div>
-          <% if (locals.messages.errors) { %>
-            <% messages.errors.forEach((el) => { %>
-              <div class="text-xl  text-red-700 font-bold mx-auto text-center">
-                <%= el.msg %>
-              </div>
-            <% }) %>
-          <% } %>
-          <div class="container mt-5">
-            <h2 class="font-bold text-xl mb-5">Add a post</h2>
-            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
-              <div class="flex flex-col mb-8 mt-15">
-                  <label for="title" class="mb-3">Title</label>
-                  <input type="text" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="title" name="title" maxlength="20">
-              </div>
-              <div class="flex flex-col mb-8 mt-15">
-                <label for="caption" class=" mb-3">Caption</label>
-                <input class=" px-4  rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="caption" name="caption"
-                maxlength="20" ></input>
-              </div>
-              <div class="mb-3 flex flex-col mt-15">
-                <label for="imgUpload" class="mb-3 ">Image</label>
-                <input type="file" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="imageUpload" name="file">
-              </div>
-              <button type="submit" class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" value="Upload">Post!</button>
-            </form>
-            
-          
-      </div>
+<div class="container flex justify-center items-center flex-col mx-auto p-6">
+  <div class="container flex flex-row justify-between mb-8  ">
+    <div class=" flex flex-col ">
+      <p class=" my-3  "><strong>User Name</strong>: <%= user.userName %></p>
+      <p class="my-3 "><strong>Email</strong>: <%= user.email %></p>
+      <a class=" my-3 p-3 px-6 text-white bg-cyan-600 rounded-full baseline text-center hover:bg-cyan-700" href="/delete-account">Delete Account</a>
     </div>
-    <div class="container flex flex-col mb-8 mt-8 mx-auto p-6">
-      <ul >
-        <% posts.sort(function(a, b) { return new Date(b.createdAt) - new Date(a.createdAt); }); %>
-      <% for(let i=0; i<posts.length; i++) {%>
-        <li class="flex flex-col mb-8 mt-15 border border-cyan-700 rounded px-4 pt-2">
-          <a href="/post/<%= posts[i]._id%>">
-            <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title%></h2>
-            <img class="object-cover rounded" src="<%= posts[i].image%>">
-            <p class="mt-2 ml-5"><%= posts[i].caption%></p>
-            <p class="text-right text-xs mb-2">Post by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-          </a>
-        </li>
-      <% } %>
-      </ul>
-    </div>  
-  
-
+    <div class=" flex flex-col  mb-8 mt-15">
+      <a href="/logout" class="mt-8 p-3 px-6 pt-2 text-center text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">Logout</a>
+      <a class="mt-8 p-3 px-6 pt-2 text-center text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" href="/feed">Go to Feed</a>
+    </div>
+  </div>
+  <% if (locals.messages.errors) { %>
+  <% messages.errors.forEach((el) => { %>
+  <div class="text-xl  text-red-700 font-bold mx-auto text-center">
+    <%= el.msg %>
+  </div>
+  <% }) %>
+  <% } %>
+  <div class="container mt-5">
+    <h2 class="font-bold text-xl mb-5">Add a post</h2>
+    <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+      <div class="flex flex-col mb-8 mt-15">
+        <label for="title" class="mb-3">Title</label>
+        <input type="text" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="title" name="title" maxlength="20">
+      </div>
+      <div class="flex flex-col mb-8 mt-15">
+        <label for="caption" class=" mb-3">Caption</label>
+        <input class=" px-4  rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="caption" name="caption" maxlength="20"></input>
+      </div>
+      <div class="mb-3 flex flex-col mt-15">
+        <label for="imgUpload" class="mb-3 ">Image</label>
+        <input type="file" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="imageUpload" name="file">
+      </div>
+      <button type="submit" class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700" value="Upload">Post!</button>
+    </form>
+  </div>
+</div>
+<div class="container flex flex-col mb-8 mt-8 mx-auto p-6">
+  <ul>
+    <% posts.sort(function(a, b) { return new Date(b.createdAt) - new Date(a.createdAt); }); %>
+    <% for(let i=0; i<posts.length; i++) {%>
+    <li class="flex flex-col mb-8 mt-15 border border-cyan-700 rounded px-4 pt-2">
+      <a href="/post/<%= posts[i]._id%>">
+        <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title%></h2>
+        <img class="object-cover rounded" src="<%= posts[i].image%>">
+        <p class="mt-2 ml-5"><%= posts[i].caption%></p>
+        <p class="text-right text-xs mb-2">Post by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</div>
 
 <%- include('partials/footer') -%>

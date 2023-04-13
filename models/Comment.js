@@ -24,24 +24,4 @@ const CommentSchema = new mongoose.Schema({
   },
 });
 
-// CommentSchema.virtual("user", {
-//   ref: "User",
-//   localField: "userName",
-//   foreignField: "userName",
-//   justOne: true,
-//   populate: { select: "userName" },
-// });
-
-// CommentSchema.virtual("user", {
-//   ref: "User",
-//   localField: "user",
-//   foreignField: "_id",
-//   justOne: true,
-//   populate: { select: "userName" },
-//   toJSON: { virtuals: true },
-//   toObject: { virtuals: true },
-
-//   // ... other options ...
-// });
-
 module.exports = mongoose.model("Comment", CommentSchema);

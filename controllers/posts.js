@@ -3,7 +3,6 @@ const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 const mongoose = require("mongoose");
 
-
 module.exports = {
   getProfile: async (req, res) => {
     console.log(req.user);
@@ -22,7 +21,6 @@ module.exports = {
       const posts = await Post.find()
         .sort({ createdAt: "desc" })
         .populate({ path: "user", match: { username: req.user.username } })
-        // .populate("user")
         .lean();
       res.render("feed.ejs", { posts: posts });
     } catch (err) {
@@ -31,45 +29,16 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      // const postId = new mongoose.Types.ObjectId(req.params.id);
-      // const post = await Post.find({ post: postId })
       const posts = await Post.findById(req.params.id).populate({
         path: "user",
-        // match: { userName: req.user.userName },
       });
-      // .populate("user");
-      // const commentId = new mongoose.Types.ObjectId(req.params.id);
-      // const comments = await Comment.find({ comment: commentId })
       const comments = await Comment.find({ post: req.params.id })
         .sort({ createdAt: "desc" })
         .populate({
           path: "user",
-          // select: "userName",
           match: { username: req.user.username },
         })
-        // .populate({ path: "user", match: { username: req.user.username } })
-        // .populate({
-        //   path: "user",
-        //   // select: "userName",
-        // })
-        // path: "post",
-        // select: "user",
-        // populate: {
-        //   path: "user",
-        //   select: "userName",
-        //   populate: {
-        //     path: "user",
-        //     select: "userName",
-        //     // },
-        //   },
-        // })
-        // .populate("userName")
         .lean();
-      // await Comment.populate(comments);
-      // for (const comment of comments) {
-      //   await comment.populate("user", "username").execPopulate();
-      // }
-
       console.log(comments);
       console.log(posts);
       res.render("post.ejs", {
@@ -87,7 +56,6 @@ module.exports = {
       let image = undefined;
       let cloudinaryId = undefined;
       const { title, caption, file } = req.body;
-
       if (req.file) {
         const result = await cloudinary.uploader.upload(req.file.path);
         image = result.secure_url;
