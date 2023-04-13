@@ -116,9 +116,9 @@
             <%}%>
           <p class="text-right text-xs mb-2">Comment by <%= comments[i].user.userName%> on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
           </li>
-          <%if(comments[i].user.userName !== user.userName){ %>
+          <%if(comments[i].user.userName != user.userName){ %>
             <form
-              action="/comment/likeComment/<%= comments._id %>?_method=PUT"
+              action="/comment/likeComment/<%= comments[i]._id.toString() %>?_method=PUT"
               method="POST"
               class="flex flex-row justify-end"
             >
@@ -140,7 +140,7 @@
             <%}%>
           <% if (comments[i].user.userName == user.userName) { %>
           <form
-          action="/comment/deleteComment/<%=comments._id%>?_method=DELETE"
+          action="/comment/deleteComment/<%=comments[i]._id.toString()%>?_method=DELETE"
           method="POST"
           class="flex flex-row justify-end"
         >
