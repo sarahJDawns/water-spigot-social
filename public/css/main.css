@@ -626,6 +626,10 @@ video {
   height: 1.5rem;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -656,14 +660,6 @@ video {
 
 .justify-between {
   justify-content: space-between;
-}
-
-.whitespace-normal {
-  white-space: normal;
-}
-
-.break-words {
-  overflow-wrap: break-word;
 }
 
 .rounded {
@@ -748,6 +744,11 @@ video {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .text-xl {

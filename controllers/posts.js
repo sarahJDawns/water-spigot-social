@@ -2,7 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 const mongoose = require("mongoose");
-const { postcss } = require("autoprefixer");
+
 
 module.exports = {
   getProfile: async (req, res) => {

@@ -80,27 +80,33 @@ module.exports = {
     // const post = await Post.findById(req.params.id); //   });
 
     try {
-      await Comment.findOneAndUpdate(
+      const comment = await Comment.findOneAndUpdate(
         { _id: req.params.id },
         {
           $inc: { likes: 1 },
           // username: req.user.username,
-          post: req.params.id,
-          // user: req.params.id,
-          user: req.user.id,
+          // post: req.params.id,
+          // // user: req.params.id,
+          // user: req.user.id,
           // new: true,
           // post: post,
-        }
+        },
+        { new: true }
       );
       // res.render("post.ejs", {
       //   post: posts,
       //   user: req.user,
       //   comments: comments,
       // }); // Assuming "post" is the object you want to pass to the EJS template
-
-      // res.render("profile.ejs");
-      console.log("Likes +1");
-      res.redirect(`/post/${req.params.id}`); // Assuming "post" is the object you want to pass to the EJS template
+      if (comment.user.toString() !== req.user.id) {
+        // await Comment.findOneAndUpdate({ _id: req.params.id });
+        // res.render("profile.ejs");
+        console.log("Likes +1");
+        res.redirect(`/post/${comment.post}`);
+      } else {
+        res.redirect(`/post/${comment.post}`);
+        // res.redirect(`/post/${req.params.id}`); // Assuming "post" is the object you want to pass to the EJS template
+      }
     } catch (err) {
       console.log(err);
     }
@@ -108,17 +114,20 @@ module.exports = {
   deleteComment: async (req, res) => {
     // const post = await Post.findById(req.params.id);
     try {
-      const commentId = req.params.id;
-      console.log("req.params.id:", req.params.id);
-      await Comment.findOneAndDelete({
-        _id: commentId,
+      const comment = await Comment.findOne({ _id: req.params.id });
+      if (comment.user.toString() === req.user.id) {
+        await Comment.findOneAndDelete({ _id: req.params.id });
+        // const commentId = req.params.id;
+        // console.log("req.params.id:", req.params.id);
+        // await Comment.findOneAndDelete({
+        //   _id: commentId,
         // user: req.user.id,
         // username: req.user.username,
         // user: req.params.id,
-        post: req.params.id,
+        // post: req.params.id,
         // new: true,
         // post: post,
-      });
+      }
       // res.render("post.ejs", {
       //   post: posts,
       //   user: req.user,
@@ -126,9 +135,9 @@ module.exports = {
       // }); // Assuming "post" is the object you want to pass to the EJS template
 
       console.log("Deleted Comment");
-      res.redirect(`/post/${req.params.id}`); // Assuming "post" is the object you want to pass to the EJS template
+      res.redirect(`/post/${comment.post}`); // Assuming "post" is the object you want to pass to the EJS template
     } catch (err) {
-      res.redirect(`/post/${req.params.id}`); // Assuming "post" is the object you want to pass to the EJS template
+      res.redirect(`/post/${comment.post}`); // Assuming "post" is the object you want to pass to the EJS template
     }
   },
 };
