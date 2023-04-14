@@ -7,8 +7,8 @@
       <div class="flex-col text-xl pb-3 text-red-700 font-bold mx-auto text-center">
         <%= el.msg %>
       </div>
-      <% }) %> <% } %> <% if (locals.messages.info) { %> <%
-      messages.info.forEach( el => { %>
+      <% }) %> <% } %>
+      <% if (locals.messages.info) { %> <% messages.info.forEach( el => { %>
       <div class="text-xl pb-5 text-red-700 font-bold mx-auto text-center">
         <%= el.msg %>
       </div>
@@ -21,9 +21,12 @@
         <div class="flex flex-col my-8">
           <label for="exampleInputEmail1" class="mb-3">Email address</label>
           <input type="email" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" />
-          <div id="emailHelp" class="text-lg py-8 text-blue-800 font-bold mx-auto text-center">
-            <p>Thank you for participating!</p>
-            <p>Please enter your information for account deletion.</p>
+          <div>
+            <% if (locals.messages.info) { %>
+            <p class="text-lg py-8 text-blue-800 font-bold mx-auto text-center">Thank you for participating!</p>
+            <% } else { %>
+            <p class="text-lg py-8 text-blue-800 font-bold mx-auto text-center">Please enter your information for account deletion.</p>
+            <% } %>
           </div>
         </div>
         <div class="flex flex-col mb-8 mt-15">

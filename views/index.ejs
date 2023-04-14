@@ -1,11 +1,14 @@
 <%- include('partials/header') -%>
 
-<main class="container flex mx-auto">
-  <div class="container flex flex-row justify-center items-center mt-5">
-    <a href="/login" class="flex flex-row mx-3 mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">
-      Login</a>
-    <a href="/signup" class="flex flex-row mx-3 mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">
-      Signup</a>
+<main class="container flex flex-col mx-auto p-6 m-8 w-3/4 md:w-2/3">
+  <div class="container flex justify-center items-center mx-auto flex-col p-6">
+    <h1 class="text-xl text-blue-800 font-bold mx-auto text-center">Welcome</h1>
+    <div class="flex flex-col m-8 mb-8 w-full md:flex-row md:justify-evenly">
+      <a href="/login" class="mt-8 m-8 p-3 px-6 pt-2 text-center text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">
+        Login</a>
+      <a href="/signup" class="mt-8 m-8 p-3 px-6 pt-2 text-center text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">
+        Signup</a>
+    </div>
   </div>
 </main>
 

@@ -62,13 +62,8 @@ module.exports = {
         cloudinaryId = result.public_id;
       }
 
-      if (!req.body.title && !req.body.caption) {
+      if (!title && !caption && !image) {
         req.flash("errors", { msg: "At least one field must be filled." });
-        return res.redirect("/profile");
-      }
-
-      if (!req.body.title.trim() && !req.body.caption.trim()) {
-        req.flash("errors", { msg: "At least one field must not be empty." });
         return res.redirect("/profile");
       }
 

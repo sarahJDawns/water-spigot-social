@@ -1,27 +1,23 @@
 <%- include('partials/header') -%>
 
-<div class="container mx-auto flex flex-col p-6">
-  <div class=" flex flex-row justify-end  text-center  mb-5 mr-5">
-    <a href="/logout" class="p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700">Logout</a>
+<div class="container mx-auto flex flex-col p-6 md:w-2/3">
+  <div class="flex flex-col justify-end text-center mb-5 p-6 md:w-full md:items-end md:justify-end">
+    <a href="/logout" class="p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700 md:mr-8">Logout</a>
+    <a class="mt-5 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700 md:mr-8" href="/profile">Go to Profile</a>
   </div>
-  <div class="flex flex-row   text-center justify-end  my-3 mr-5">
-    <a class="p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full  hover:bg-cyan-700" href="/profile">Go to Profile</a>
-  </div>
-  <div class="container flex flex-col mb-8 mt-8">
+  <div class="container flex flex-col mx-auto p-6 mb-8 mt-8">
     <ul>
       <% for(let i=0; i<posts.length; i++) {%>
-      <li class="flex flex-col mb-8 mt-15 border border-cyan-700 rounded px-4 pt-2">
+      <li class="flex flex-col break-words mb-8 mt-15 border border-cyan-700 rounded px-4 pt-2">
         <a href="/post/<%= posts[i]._id%>">
           <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title %></h2>
-          <img class=" object-cover rounded" src="<%= posts[i].image%>">
+          <% if (posts[i].image) { %>
+          <img class="object-cover rounded w-full h-52" src="<%= posts[i].image%>">
+          <% } %>
+          <p class="ml-5 mt-2"><%= posts[i].caption %></p>
+          <h3 class="mt-2 mr-2 mb-2 text-right">Likes: <%= posts[i].likes %></h3>
+          <p class="text-right text-xs mb-2">Post by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
         </a>
-        <div class="flex flex-row justify-between">
-          <a href="/post/<%= posts[i]._id%>">
-            <p class="ml-5 mt-2"><%= posts[i].caption %></p>
-          </a>
-          <h3 class="mt-2 mr-2 mb-2">Likes: <%= posts[i].likes %></h3>
-        </div>
-        <p class="text-right text-xs mb-2">Post by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
       </li>
       <% } %>
     </ul>

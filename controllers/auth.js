@@ -40,7 +40,7 @@ exports.postLogin = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      req.flash("success", { msg: "Success! You are logged in." });
+      req.flash("info", { msg: "Success! You are logged in." });
       res.redirect(req.session.returnTo || "/profile");
     });
   })(req, res, next);
@@ -73,10 +73,10 @@ exports.postSignup = (req, res, next) => {
     validationErrors.push({ msg: "Please enter a valid email address." });
   if (!validator.isLength(req.body.password, { min: 8 }))
     validationErrors.push({
-      msg: "Password must be at least 8 characters long",
+      msg: "Password must be at least 8 characters long.",
     });
   if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push({ msg: "Passwords do not match" });
+    validationErrors.push({ msg: "Passwords do not match." });
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
@@ -123,7 +123,7 @@ exports.getDeleteAccount = (req, res) => {
 exports.postDeleteAccount = async (req, res) => {
   const validationErrors = [];
   if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push({ msg: "Passwords do not match" });
+    validationErrors.push({ msg: "Passwords do not match." });
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
@@ -139,9 +139,12 @@ exports.postDeleteAccount = async (req, res) => {
     await Comment.deleteMany({ user: req.user._id });
     await User.deleteOne({ _id: req.user._id });
     console.log("Deleted User");
-    res.redirect("/");
+    req.flash("info", { msg: "Your account has been deleted." });
+    return res.render("delete-account", {
+      msg: "Your account has been deleted.",
+    });
   } catch (err) {
-    console.error(err);
-    res.redirect("/");
+    console.error("Error in deletion");
+    res.redirect("/signup");
   }
 };

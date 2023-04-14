@@ -1,33 +1,36 @@
 <%- include('partials/header') -%>
 
-<main class="container mx-auto flex flex-col w-1/2 items-center justify-center p-6">
-  <div class="container flex justify-center items-center">
-    <section>
-      <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
-      <div class="flex-col text-xl pb-3 text-red-700 font-bold mx-auto text-center">
-        <%= el.msg %>
-      </div>
-      <% }) %> <% } %> <% if (locals.messages.info) { %> <%
+<main class="container flex flex-col items-center justify-center p-6 w-full mx-auto sm:w-2/3 md:w-1/2">
+  <section class="container flex flex-col justify-center items-center mx-auto p-6">
+    <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
+    <div class="flex-col text-xl pb-3 text-red-700 font-bold mx-auto text-center">
+      <%= el.msg %>
+    </div>
+    <% }) %> <% } %> <% if (locals.messages.info) { %> <%
       messages.info.forEach( el => { %>
-      <div class="text-xl pb-5 text-red-700 font-bold mx-auto text-center">
-        <%= el.msg %>
+    <div class="text-xl pb-5 text-red-700 font-bold mx-auto text-center">
+      <%= el.msg %>
+    </div>
+    <% }) %> <% } %>
+    <form action="/login" method="POST" class="container w-full m-8">
+      <div class="flex flex-col ">
+        <label for="email" class="my-3">Email address</label>
+        <input type="email" class="caret-pink-500 px-4 py-3 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="email" name="email" />
       </div>
-      <% }) %> <% } %>
-      <form action="/login" method="POST">
-        <div class="flex flex-col mb-8 mt-15">
-          <label for="exampleInputEmail1" class="my-3">Email address</label>
-          <input type="email" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" />
-        </div>
-        <div class="flex flex-col my-8">
-          <label for="exampleInputPassword1" class="mb-3">Password</label>
-          <input type="password" class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="exampleInputPassword1" name="password" />
-        </div>
-        <button type="submit" class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">
+      <div class="flex flex-col mt-5">
+        <label for="password" class="mb-3">Password</label>
+        <input type="password" class="caret-pink-500 px-4 py-3 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="password" name="password" />
+      </div>
+      <div class="flex flex-row mt-5  md:justify-center 
+      md:items-center">
+        <button type="submit" class="flex-flex-row w-full p-3 px-6 pt-2 mt-4 mx-auto text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700 md:justify-center md:items-center md:w-1/3
+        ">
           Submit
         </button>
-      </form>
-    </section>
-  </div>
+      </div>
+    </form>
+  </section>
+
 </main>
 
 <%- include('partials/footer') -%>

@@ -1,22 +1,19 @@
 <%- include('partials/header') -%>
 
-<div class="container mx-auto  flex flex-col p-6">
-  <div class=" flex flex-row justify-end  text-center  mb-5 mr-5">
-    <a class=" p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700" href="/feed">Go to Feed</a>
+<div class="container mx-auto flex flex-col p-6 md:w-2/3">
+  <div class="flex flex-col justify-end text-center mb-5 p-6 md:flex-row md:w-full md:justify-around md:mr-5">
+    <a href="/logout" class="p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700 ">Logout</a>
+    <a class="p-3 px-6 pt-2 mt-5 text-white bg-cyan-600 rounded-full hover:bg-cyan-700 md:mt-0 " href="/feed">Go to Feed</a>
+    <a class="p-3 px-6 pt-2 mt-5 text-white bg-cyan-600 rounded-full hover:bg-cyan-700 md:mt-0" href="/profile">Go to Profile</a>
   </div>
-  <div class=" flex flex-row   text-center justify-end my-3 mr-5">
-    <a class=" p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full  hover:bg-cyan-700" href="/profile">Go to Profile</a>
-  </div>
-  <div class="container flex flex-col mt-8">
-    <div class=" flex flex-col  mt-15 border border-cyan-700 rounded px-4 pt-2">
+  <div class="container flex flex-col mt-8 mx-auto p-6">
+    <div class="flex flex-col mt-15 border border-cyan-700 rounded px-4 pt-2 break-words">
       <h2 class="font-bold mb-2 ml-5 text-xl"><%= post.title %></h2>
-      <img class="object-cover rounded" src="<%= post.image%>" />
-      <div class="flex flex-row justify-between ml-5 mt-2">
-        <p><%= post.caption %></p>
-        <div class="flex flex-row">
-          <h3 class="mr-2 mt-2 mb-2">Likes: <%= post.likes %></h3>
-        </div>
-      </div>
+      <% if (post.image) { %>
+      <img class="object-cover rounded w-full h-52" src="<%= post.image%>" />
+      <% } %>
+      <p class="ml-5 mt-2"><%= post.caption %></p>
+      <h3 class="mr-2 mt-2 mb-2 text-right">Likes: <%= post.likes %></h3>
       <p class="text-right text-xs mb-2">
         Post by <%= post.user.userName %> on <%=
         post.createdAt.toLocaleDateString('en-US', { weekday: 'long', year:
@@ -35,63 +32,63 @@
     <%if(post.user.userName == user.userName){ %>
     <form action="/post/deletePost/<%= post.id %>?_method=DELETE" method="POST" class="flex flex-row justify-end">
       <button class="mr-2 mt-2" type="submit">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-cyan-600">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-blue-500">
           <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
         </svg>
       </button>
     </form>
     <%}%>
   </div>
-  <div class="mt-12">
+  <div class="container mt-12 p-6">
     <h2 class="font-bold text-xl mb-5">Add a comment</h2>
     <form action="/comment/createComment/<%=post._id%>" method="POST">
     <div class="flex flex-col mb-8 mt-15">
-      <input class="px-4 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="comment" name="comment" maxlength="20"></input>
+      <input class="caret-pink-500 px-4 py-3 rounded-full border-2 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-slate-100" id="comment" name="comment" maxlength="100"></input>
     </div>
-    <button type="submit" class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700">
-      Comment!
-    </button>
+    <div class="flex flex-row mt-5  md:justify-center 
+      md:items-center">
+      <button type="submit" class="flex-flex-row w-full p-3 px-6 pt-2 mt-4 mx-auto text-white bg-cyan-600 rounded-full baseline hover:bg-cyan-700 md:justify-center md:items-center md:w-1/3">
+        Comment!
+      </button>
+    </div>
     </form>
     <% if (messages.errors) { %> <% messages.errors.forEach((el) => { %>
-    <div class="text-xl mt-5 text-red-700 font-bold mx-auto text-center">
+    <div class="text-xl mt-6 text-red-700 font-bold mx-auto text-center">
       <%= el.msg %>
     </div>
-    <% }) %> <% } %
+    <% }) %> <% } %>
   </div>
-  <div class="container flex flex-col mt-12">
-      <ul class="container flex flex-col list-none">
-        <% for(let i=0; i<comments.length; i++) {%>
-    <li class="flex flex-col mb-2 mt-15  border border-cyan-700 rounded px-4 pt-2">
-      <%= comments[i].comment%>
-      <% if (comments[i].user) { %>
-      <%if(comments[i].user.userName !== user.userName){ %>
-      <div class="flex flex-row justify-end ml-5 mt-2">
-        <h3 class="mr-2 mt-2 mb-2">Likes: <%= comments[i].likes %>
+  <div class="container flex flex-col mt-12 mx-auto p-6">
+    <ul>
+      <% for(let i=0; i<comments.length; i++) {%>
+      <li class="flex break-words flex-col mb-2 mt-15 border border-cyan-700 rounded px-4 pt-2">
+        <%= comments[i].comment%>
+        <% if (comments[i].user) { %>
+        <%if(comments[i].user.userName !== user.userName){ %>
+        <%}%><h3 class="mr-2 mt-2 mb-2 text-right">Likes: <%= comments[i].likes%>
         </h3>
-      </div>
+        <p class="text-right text-xs mb-2">Comment by <%= comments[i].user.userName%> on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+      </li>
+      <%if(comments[i].user.userName != user.userName){ %>
+      <form action="/comment/likeComment/<%=comments[i]._id.toString()%>?_method=PUT" method="POST" class="flex flex-row justify-end">
+        <button type="submit" class="mr-2 mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
+            <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
+        </button>
+      </form>
       <%}%>
-          <p class="text-right text-xs mb-2">Comment by <%= comments[i].user.userName%> on <%= comments[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-    </li>
-    <%if(comments[i].user.userName != user.userName){ %>
-    <form action="/comment/likeComment/<%= comments[i]._id.toString() %>?_method=PUT" method="POST" class="flex flex-row justify-end">
-      <button type="submit" class="mr-2 mb-5">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
-          <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-        </svg>
-      </button>
-    </form>
-    <%}%>
-          <% if (comments[i].user.userName == user.userName) { %>
-    <form action="/comment/deleteComment/<%=comments[i]._id.toString()%>?_method=DELETE" method="POST" class="flex flex-row justify-end">
-      <button class="mr-2 mb-5" type="submit">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-cyan-600">
-          <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
-        </svg>
-      </button>
-    </form>
-    <% } %>
-    <% } %>
-    <% } %>
+      <% if (comments[i].user.userName == user.userName) { %>
+      <form action="/comment/deleteComment/<%=comments[i]._id.toString()%>?_method=DELETE" method="POST" class="flex flex-row justify-end">
+        <button class="mr-2 mb-5" type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-blue-500">
+            <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </form>
+      <% } %>
+      <% } %>
+      <% } %>
     </ul>
   </div>
 </div>
