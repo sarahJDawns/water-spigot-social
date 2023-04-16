@@ -16,4 +16,5 @@ router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 router.get("/delete-account", ensureAuth, authController.getDeleteAccount);
 router.post("/delete-account", ensureAuth, authController.postDeleteAccount);
+
 module.exports = router;

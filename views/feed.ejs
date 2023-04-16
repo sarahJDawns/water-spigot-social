@@ -1,28 +1,33 @@
 <%- include('partials/header') -%>
 
-<div class="container mx-auto flex flex-col p-6 md:w-2/3">
-  <div class="flex flex-col justify-end text-center mb-5 p-6 md:w-full md:items-end md:justify-end">
-    <a href="/logout" class="p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700 md:mr-8">Logout</a>
-    <a class="mt-5 p-3 px-6 pt-2 text-white bg-cyan-600 rounded-full hover:bg-cyan-700 md:mr-8" href="/profile">Go to Profile</a>
+<div class="bg-slate-100 mx-auto flex flex-col p-6">
+  <div class="flex flex-col mb-5 p-6 md:mx-auto md:w-full md:flex-row md:justify-center md:mr-5 md:space-x-10">
+    <a href="/logout" class="mt-5 p-3 px-6 pt-2 font-bold text-slate-100 bg-cyan-600 rounded-full hover:bg-cyan-700">Logout</a>
+    <a class="mt-5 p-3 px-6 pt-2 font-bold text-slate-100 bg-cyan-600 rounded-full hover:bg-cyan-700" href="/profile">Go to Profile</a>
   </div>
-  <div class="container flex flex-col mx-auto p-6 mb-8 mt-8">
+  <div class="container flex flex-col mx-auto p-6 mb-8 mt-8 md:w-2/3">
     <ul>
       <% for(let i=0; i<posts.length; i++) {%>
-      <li class="flex flex-col break-words mb-8 mt-15 border border-cyan-700 rounded px-4 pt-2">
+      <li class="bg-blue-50 flex flex-col break-words mb-8 mt-15 border border-cyan-700 rounded px-4 pt-2">
         <a href="/post/<%= posts[i]._id%>">
-          <h2 class="font-bold mb-2 ml-5 text-xl"><%= posts[i].title %></h2>
+          <h2 class="font-bold mb-2 mx-5 text-xl text-slate-700"><%= posts[i].title %></h2>
           <% if (posts[i].image) { %>
           <img class="object-cover rounded w-full h-52" src="<%= posts[i].image%>">
           <% } %>
-          <p class="ml-5 mt-2"><%= posts[i].caption %></p>
-          <h3 class="mt-2 mr-2 mb-2 text-right">Likes: <%= posts[i].likes %></h3>
-          <p class="text-right text-xs mb-2">Post by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+          <p class="mx-2 mt-2"><%= posts[i].caption %></p>
+          <h3 class="mt-2 mr-2 mb-2 text-right text-slate-700">Likes: <%= posts[i].likes %></h3>
+          <p class="text-right text-xs mb-2 text-slate-700">Post by <%= posts[i].user.userName %> on <%= posts[i].createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
         </a>
       </li>
       <% } %>
     </ul>
   </div>
 </div>
-
+<button id="to-top-button" onclick="goToTop()" title="Go To Top" class="hidden fixed z-50 bottom-10 right-10 p-4 border-0 w-14 h-14 rounded-full shadow-md bg-purple-600 hover:bg-purple-700 text-slate-100 text-lg font-semibold transition-colors duration-300">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+    <path d="M12 4l8 8h-6v8h-4v-8H4l8-8z" />
+  </svg>
+  <span class="sr-only">Go to top</span>
+</button>
 
 <%- include('partials/footer') -%>

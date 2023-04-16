@@ -1,10 +1,11 @@
-## Dog Social
+## The Water Spigot Social Network
 
-Dog social media app to connect with other dogs and their humans.
+A place to grow, share, connect.
+Social messaging and photo sharing app for home veg growers.
 
 ---
 
-![img](public/images/macroMealSet.png)
+![img](public/images/waterSpigotSet.png)
 
 ---
 
@@ -17,6 +18,15 @@ Dog social media app to connect with other dogs and their humans.
 - ![Express]
 - ![MongoDB]
 - ![TailwindCSS]
+
+## How it works
+
+- [ ] Sign up and log in
+  - [ ] Requires a user name, email, and password. \*delete account if desired
+- [ ] Create a post
+  - [ ] Share a heading, an image, a caption, or comment on a post.
+- [ ] Like and delete
+  - [ ] Logged in users can like others' posts & captions and delete their own.
 
 [css]: https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3
 [html]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white

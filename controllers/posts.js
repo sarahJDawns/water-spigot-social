@@ -33,7 +33,7 @@ module.exports = {
         path: "user",
       });
       const comments = await Comment.find({ post: req.params.id })
-        .sort({ createdAt: "desc" })
+        .sort({ createdAt: "asc" })
         .populate({
           path: "user",
           match: { username: req.user.username },

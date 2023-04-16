@@ -1,7 +1,7 @@
 {
-  "name": "dogsocial",
+  "name": "waterspigot",
   "version": "1.0.0",
-  "description": "Social messaging and photo sharing app for dogs and their humans.",
+  "description": "Social messaging and photo sharing app for home veg growers.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
