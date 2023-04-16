@@ -26,7 +26,7 @@ Social messaging and photo sharing app for home veg growers.
 - [ ] Create a post
   - [ ] Share a heading, an image, a caption, or comment on a post.
 - [ ] Like and delete
-  - [ ] Logged in users can like others' posts & captions and delete their own.
+  - [ ] Logged in users can like others' posts & comments and delete their own.
 
 [css]: https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3
 [html]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
