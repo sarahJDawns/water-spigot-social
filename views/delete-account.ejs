@@ -12,6 +12,7 @@
       <%= el.msg %>
     </div>
     <% }) %> <% } %>
+    <% if (!(messages.info && messages.info.length)) { %>
     <form action="/delete-account" method="POST">
       <div class="flex flex-col mb-8 mt-15">
         <label for="userName" class="my-3 text-slate-700">User Name</label>
@@ -40,6 +41,7 @@
         Delete Account
       </button>
     </form>
+    <% } %>
   </div>
 </main>
 
