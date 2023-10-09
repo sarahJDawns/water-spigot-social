@@ -1,43 +1,43 @@
 <%- include('partials/header') -%>
 
-<main class="bg-slate-100 flex flex-col items-center justify-center p-6 w-full mx-auto">
-  <div class="container flex flex-col justify-center items-center p-6 sm:w-2/3 md:w-1/2">
+<main class="bg-slate-100 flex flex-col items-center justify-center w-full p-6 mx-auto">
+  <div class="sm:w-2/3 md:w-1/2 container flex flex-col items-center justify-center p-6">
     <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
-    <div class="flex-col text-xl pb-3 text-red-700 font-bold mx-auto text-center">
+    <div class="flex-col pb-3 mx-auto text-xl font-bold text-center text-red-700">
       <%= el.msg %>
     </div>
     <% }) %> <% } %>
     <% if (locals.messages.info) { %> <% messages.info.forEach( el => { %>
-    <div class="text-xl pb-5 text-red-700 font-bold mx-auto text-center">
+    <div class="pb-5 mx-auto text-xl font-bold text-center text-red-700">
       <%= el.msg %>
     </div>
     <% }) %> <% } %>
     <% if (!(messages.info && messages.info.length)) { %>
     <form action="/delete-account" method="POST">
-      <div class="flex flex-col mb-8 mt-15">
-        <label for="userName" class="my-3 text-slate-700">User Name</label>
-        <input type="text" class="bg-blue-50 px-4 py-3 rounded-full border-2 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100" id="userName" name="userName" />
+      <div class="mt-15 flex flex-col mb-8">
+        <label for="userName" class="text-slate-700 my-3">User Name</label>
+        <input type="text" class="bg-blue-50 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100 px-4 py-3 border-2 rounded-full" id="userName" name="userName" />
       </div>
       <div class="flex flex-col my-8">
-        <label for="exampleInputEmail1" class="mb-3 text-slate-700">Email address</label>
-        <input type="email" class="bg-blue-50 px-4 py-3 rounded-full border-2 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" />
+        <label for="exampleInputEmail1" class="text-slate-700 mb-3">Email address</label>
+        <input type="email" class="bg-blue-50 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100 px-4 py-3 border-2 rounded-full" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" />
         <div>
           <% if (locals.messages.info) { %>
-          <p class="text-lg py-8 text-slate-700 font-bold mx-auto text-center">Thank you for participating!</p>
+          <p class="text-slate-700 py-8 mx-auto text-lg font-bold text-center">Thank you for participating!</p>
           <% } else { %>
-          <p class="text-lg py-8 text-slate-700 font-bold mx-auto text-center">Please enter your information for account deletion.</p>
+          <p class="text-slate-700 py-8 mx-auto text-lg font-bold text-center">Please enter your information for account deletion.</p>
           <% } %>
         </div>
       </div>
-      <div class="flex flex-col mb-8 mt-15">
-        <label for="password" class="mb-3 text-slate-700">Password</label>
-        <input type="password" class="bg-blue-50 px-4 py-3 rounded-full border-2 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100" id="password" name="password" />
+      <div class="mt-15 flex flex-col mb-8">
+        <label for="password" class="text-slate-700 mb-3">Password</label>
+        <input type="password" class="bg-blue-50 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100 px-4 py-3 border-2 rounded-full" id="password" name="password" />
       </div>
-      <div class="flex flex-col mb-8 mt-15">
-        <label for="confirmPassword" class="mb-3 text-slate-700">Confirm Password</label>
-        <input type="password" class="bg-blue-50 px-4 py-3 rounded-full border-2 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100" id="confirmPassword" name="confirmPassword" />
+      <div class="mt-15 flex flex-col mb-8">
+        <label for="confirmPassword" class="text-slate-700 mb-3">Confirm Password</label>
+        <input type="password" class="bg-blue-50 caret-purple-600 border-cyan-800 focus:border-blue-500 focus:outline-none focus:bg-blue-100 px-4 py-3 border-2 rounded-full" id="confirmPassword" name="confirmPassword" />
       </div>
-      <button type="submit" class="flex flex-row mx-auto mt-8 p-3 px-6 pt-2 font-bold text-slate-100 bg-cyan-600 rounded-full baseline hover:bg-cyan-700">
+      <button type="submit" class="text-slate-100 bg-cyan-600 baseline hover:bg-cyan-700 flex flex-row p-3 px-6 pt-2 mx-auto mt-8 font-bold rounded-full">
         Delete Account
       </button>
     </form>
