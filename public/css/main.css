@@ -709,6 +709,10 @@ video {
   height: 1.5rem;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .w-11\/12 {
   width: 91.666667%;
 }

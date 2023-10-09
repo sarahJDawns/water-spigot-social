@@ -5,15 +5,18 @@ const mongoose = require("mongoose");
 
 module.exports = {
   getProfile: async (req, res) => {
-    console.log(req.user);
     try {
-      const posts = await Post.find({ user: req.user.id }).populate({
+      const userId = req.user.id;
+      const username = req.user.username;
+
+      const posts = await Post.find({ user: userId }).populate({
         path: "user",
-        match: { username: req.user.username },
+        match: { username: username },
       });
-      res.render("profile.ejs", { posts: posts, user: req.user });
+
+      res.render("profile.ejs", { posts, user: req.user });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
   getFeed: async (req, res) => {
@@ -22,9 +25,9 @@ module.exports = {
         .sort({ createdAt: "desc" })
         .populate({ path: "user", match: { username: req.user.username } })
         .lean();
-      res.render("feed.ejs", { posts: posts });
-    } catch (err) {
-      console.log(err);
+      res.render("feed.ejs", { posts });
+    } catch (error) {
+      console.log(error);
     }
   },
   getPost: async (req, res) => {
@@ -53,9 +56,9 @@ module.exports = {
 
   createPost: async (req, res) => {
     try {
-      let image = undefined;
-      let cloudinaryId = undefined;
       const { title, caption, file } = req.body;
+      let image, cloudinaryId;
+
       if (req.file) {
         const result = await cloudinary.uploader.upload(req.file.path);
         image = result.secure_url;
@@ -68,14 +71,14 @@ module.exports = {
       }
 
       await Post.create({
-        title: title,
-        image: image,
-        cloudinaryId: cloudinaryId,
-        caption: caption,
+        title,
+        image,
+        cloudinaryId,
+        caption,
         likes: 0,
         user: req.user.id,
       });
-      console.log("Post has been added!");
+
       res.redirect("/profile");
     } catch (err) {
       console.log(err);
@@ -86,16 +89,10 @@ module.exports = {
 
   likePost: async (req, res) => {
     try {
-      await Post.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          $inc: { likes: 1 },
-        }
-      );
-      console.log("Likes +1");
+      await Post.findOneAndUpdate(req.params.id, { $inc: { likes: 1 } });
       res.redirect(`/post/${req.params.id}`);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   },
   deletePost: async (req, res) => {

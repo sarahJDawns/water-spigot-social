@@ -2,56 +2,54 @@ const Comment = require("../models/Comment");
 const Post = require("../models/Post");
 
 module.exports = {
-  createComment: async (req, res) => {
-    try {
-      if (!req.body.comment || req.body.comment.trim() === "") {
-        req.flash("errors", { msg: "Comment must be added!" });
-        return res.redirect("/post/" + req.params.id);
-      }
+createComment: async (req, res) => {
+  try {
+    const { comment } = req.body;
+    const { id } = req.params;
+    const { user } = req;
 
-      await Comment.create({
-        comment: req.body.comment,
-        likes: 0,
-        post: req.params.id,
-        user: req.user.id,
-        createdAt: new Date(),
-      });
+    if (!comment || comment.trim() === "") {
+      req.flash("errors", { msg: "Comment must be added!" });
+      return res.redirect(`/post/${id}`);
+    }
 
-      console.log("Comment has been added!");
-      res.redirect("/post/" + req.params.id);
-    } catch (err) {
-      console.log(err);
+    await Comment.create({
+      comment,
+      likes: 0,
+      post: id,
+      user: user.id,
+      createdAt: new Date(),
+    });
+
+    res.redirect(`/post/${id}`);
+  } catch (err) {
+    console.log(err);
+  }
+},
+likeComment: async (req, res) => {
+  try {
+    const updatedComment = await Comment.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { likes: 1 } },
+      { new: true }
+    );
+
+    const redirectPath = `/post/${updatedComment.post}`;
+    res.redirect(redirectPath);
+  } catch (err) {
+    console.log(err);
+  }
+},
+deleteComment: async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    if (comment.user.toString() === req.user.id) {
+      await Comment.findByIdAndDelete(req.params.id);
     }
-  },
-  likeComment: async (req, res) => {
-    try {
-      const comment = await Comment.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          $inc: { likes: 1 },
-        },
-        { new: true }
-      );
-      if (comment.user.toString() !== req.user.id) {
-        console.log("Likes +1");
-        res.redirect(`/post/${comment.post}`);
-      } else {
-        res.redirect(`/post/${comment.post}`);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  deleteComment: async (req, res) => {
-    try {
-      const comment = await Comment.findOne({ _id: req.params.id });
-      if (comment.user.toString() === req.user.id) {
-        await Comment.findOneAndDelete({ _id: req.params.id });
-      }
-      console.log("Deleted Comment");
-      res.redirect(`/post/${comment.post}`);
-    } catch (err) {
-      res.redirect(`/post/${comment.post}`);
-    }
-  },
+    res.redirect(`/post/${comment.post}`);
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/post/${comment.post}`);
+  }
+},
 };
